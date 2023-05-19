@@ -2,20 +2,18 @@
 
 namespace CRUDUsingAdo.Models
 {
-    public class Student
+    public class Book
     {
-        [Key] // to define Id is a PK in the DB table
+        [Key]
         [ScaffoldColumn(false)]
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
-        public string Branch { get; set; }
+
+        public string Authorname { get; set; }
         [Required]
-        public string Email { get; set; }
-        [Required]
-        public int Percentage { get; set; }
-        
+        public int Price { get; set; }
+
     }
 }
-

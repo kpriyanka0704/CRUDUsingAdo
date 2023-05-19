@@ -4,47 +4,47 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRUDUsingAdo.Controllers
 {
-    public class StudentController : Controller
+    public class BookController : Controller
     {
         private readonly IConfiguration _configuration;
-        private StudentCRUD db;
-        public StudentController(IConfiguration configuration)
+        private BookCRUD db;
+        public BookController(IConfiguration configuration)
         {
             _configuration = configuration;
-            db = new StudentCRUD(_configuration);
+            db=new BookCRUD(_configuration);
         }
-        // GET: StudentController
+
+        // GET: BookController
         public ActionResult Index()
         {
-            var list = db.GetStudents();
+            var list=db.GetBooks();
             return View(list);
         }
 
-        // GET: StudentController/Details/5
+        // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            var stud = db.GetStudentById(id);
-            return View(stud);
+            var b=db.GetBookById(id);
+            return View(b);
         }
 
-        // GET: StudentController/Create
+        // GET: BookController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: StudentController/Create
+        // POST: BookController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Student student)
+        public ActionResult Create(Book book)
         {
             try
             {
-                int result = db.AddStudent(student);
-                if (result > 0)
-                    return RedirectToAction(nameof(Index));
-                else
-                    return View();
+                int result = db.AddBook(book);
+                if(result > 0)
+                return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {
@@ -52,25 +52,24 @@ namespace CRUDUsingAdo.Controllers
             }
         }
 
-        // GET: StudentController/Edit/5
+        // GET: BookController/Edit/5
         public ActionResult Edit(int id)
         {
-            var stud = db.GetStudentById(id);
-            return View();
+            var b=db.GetBookById(id);
+            return View(b);
         }
 
-        // POST: StudentController/Edit/5
+        // POST: BookController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Student student)
+        public ActionResult Edit(Book book)
         {
             try
             {
-                int result = db.EditStudent(student);
+                int result = db.EditBook(book);
                 if (result > 0)
                     return RedirectToAction(nameof(Index));
-                else
-                    return View();
+                return View();
             }
             catch
             {
@@ -78,14 +77,14 @@ namespace CRUDUsingAdo.Controllers
             }
         }
 
-        // GET: StudentController/Delete/5
+        // GET: BookController/Delete/5
         public ActionResult Delete(int id)
         {
-            var stud = db.GetStudentById(id);
-            return View(stud);
+            var b= db.GetBookById(id);
+            return View(b);
         }
 
-        // POST: StudentController/Delete/5
+        // POST: BookController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Delete")]
@@ -93,11 +92,10 @@ namespace CRUDUsingAdo.Controllers
         {
             try
             {
-                int result = db.DeleteStudent(id);
+                int result = db.DeleteBook(id);
                 if (result > 0)
                     return RedirectToAction(nameof(Index));
-                else
-                    return View();
+                return View();
             }
             catch
             {

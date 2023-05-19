@@ -25,7 +25,7 @@ namespace CRUDUsingAdo.Models
                 while (dr.Read())
                 {
                     Student student = new Student();
-                    student.RollNo = Convert.ToInt32(dr["rollno"]);
+                    student.Id = Convert.ToInt32(dr["id"]);
                     student.Name = dr["name"].ToString();
                     student.Branch = dr["branch"].ToString();
                     student.Email = dr["email"].ToString();
@@ -38,12 +38,12 @@ namespace CRUDUsingAdo.Models
             return list;
         }
         // display single value against roll no
-        public Student GetStudentByRollNo(int rollno)
+        public Student GetStudentById(int id)
         {
             Student student = new Student();
-            string qry = "select * from Student where rollno=@rollno";
+            string qry = "select * from Student where id=@id";
             cmd = new SqlCommand(qry, con);
-            cmd.Parameters.AddWithValue("@rollno", rollno);
+            cmd.Parameters.AddWithValue("@id", id);
             con.Open();
             dr = cmd.ExecuteReader();
             if (dr.HasRows)
@@ -51,7 +51,7 @@ namespace CRUDUsingAdo.Models
                 while (dr.Read())
                 {
 
-                    student.RollNo = Convert.ToInt32(dr["rollno"]);
+                    student.Id = Convert.ToInt32(dr["id"]);
                     student.Name = dr["name"].ToString();
                     student.Branch = dr["branch"].ToString();
                     student.Email = dr["email"].ToString();
@@ -80,25 +80,25 @@ namespace CRUDUsingAdo.Models
         public int EditStudent(Student student)
         {
             int result = 0;
-            string qry = "update Student set name=@name,branch=@branch,email=@email,percentage=@percentage where rollno=@rollno";
+            string qry = "update Student set name=@name,branch=@branch,email=@email,percentage=@percentage where id=@id";
             cmd = new SqlCommand(qry, con);
             cmd.Parameters.AddWithValue("@name", student.Name);
             cmd.Parameters.AddWithValue("@branch", student.Branch);
             cmd.Parameters.AddWithValue("@email", student.Email);
             cmd.Parameters.AddWithValue("@percentage", student.Percentage);
-            cmd.Parameters.AddWithValue("@rollno", student.RollNo);
+            cmd.Parameters.AddWithValue("@id", student.Id);
             con.Open();
             result = cmd.ExecuteNonQuery();
             con.Close();
             return result;
         }
         // delete
-        public int DeleteStudent(int rollno)
+        public int DeleteStudent(int id)
         {
             int result = 0;
-            string qry = "delete from Student where rollno=@rollno";
+            string qry = "delete from Student where id=@id";
             cmd = new SqlCommand(qry, con);
-            cmd.Parameters.AddWithValue("@rollno", rollno);
+            cmd.Parameters.AddWithValue("@id", id);
             con.Open();
             result = cmd.ExecuteNonQuery();
             con.Close();
